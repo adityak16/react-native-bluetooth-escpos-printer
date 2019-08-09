@@ -3,6 +3,7 @@ package cn.jystudio.bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -134,9 +135,11 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
             for (BluetoothDevice d : boundDevices) {
                 try {
+                    BluetoothClass bluetoothClass = d.getBluetoothClass();
                     JSONObject obj = new JSONObject();
                     obj.put("name", d.getName());
                     obj.put("address", d.getAddress());
+                    obj.put("class:", bluetoothClass.getDeviceClass()); //1664
                     pairedDeivce.pushString(obj.toString());
                 } catch (Exception e) {
                     //ignore.
@@ -186,9 +189,11 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
             for (BluetoothDevice d : boundDevices) {
                 try {
+                    BluetoothClass bluetoothClass = d.getBluetoothClass();
                     JSONObject obj = new JSONObject();
                     obj.put("name", d.getName());
                     obj.put("address", d.getAddress());
+                    obj.put("class:", bluetoothClass.getDeviceClass()); //1664
                     pairedDeivce.put(obj);
                 } catch (Exception e) {
                     //ignore.
@@ -287,9 +292,11 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                         Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
                         for (BluetoothDevice d : boundDevices) {
                             try {
+                                BluetoothClass bluetoothClass = d.getBluetoothClass();
                                 JSONObject obj = new JSONObject();
                                 obj.put("name", d.getName());
                                 obj.put("address", d.getAddress());
+                                obj.put("class:", bluetoothClass.getDeviceClass()); //1664
                                 pairedDeivce.pushString(obj.toString());
                             } catch (Exception e) {
                                 //ignore.
