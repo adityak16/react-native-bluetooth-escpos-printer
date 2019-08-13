@@ -367,7 +367,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                         BluetoothClass bluetoothClass = device.getBluetoothClass();
                         deviceFound.put("name", device.getName());
                         deviceFound.put("address", device.getAddress());
-                        deviceFound.put("class", device.bluetoothClass.getDeviceClass());
+                        deviceFound.put("class", bluetoothClass.getDeviceClass());
                         deviceFound.put("type", "unpaired");
                     } catch (Exception e) {
                         //ignore
