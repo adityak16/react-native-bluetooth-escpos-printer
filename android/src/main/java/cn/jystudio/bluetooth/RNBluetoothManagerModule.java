@@ -174,6 +174,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         if(adapter == null){
             promise.reject(EVENT_BLUETOOTH_NOT_SUPPORT);
         }else {
+            
             cancelDisCovery();
             int permissionChecked = ContextCompat.checkSelfPermission(reactContext, android.Manifest.permission.ACCESS_COARSE_LOCATION);
             if (permissionChecked == PackageManager.PERMISSION_DENIED) {
@@ -204,6 +205,20 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             WritableMap params = Arguments.createMap();
             params.putString("devices", pairedDeivce.toString());
             emitRNEvent(EVENT_DEVICE_ALREADY_PAIRED, params);
+            if (adapter.isDiscovering()) {
+                // Log.i("ds", "Printer connection error");
+                cancelDisCovery();
+                adapter.startDiscovery();
+                // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                // reactContext.registerReceiver(bReceiver, filter);
+            }
+            if (!adapter.isDiscovering()) {
+                adapter.startDiscovery();
+                // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                // mContext.registerReceiver(bReceiver, filter);
+                // Log.i("ds", "Printer connection");
+
+            }
             if (!adapter.startDiscovery()) {
                 promise.reject("DISCOVER", "NOT_STARTED");
                 cancelDisCovery();
