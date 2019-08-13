@@ -205,25 +205,23 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             WritableMap params = Arguments.createMap();
             params.putString("devices", pairedDeivce.toString());
             emitRNEvent(EVENT_DEVICE_ALREADY_PAIRED, params);
+            
             if (adapter.isDiscovering()) {
                 // Log.i("ds", "Printer connection error");
                 cancelDisCovery();
                 adapter.startDiscovery();
+                promiseMap.put(PROMISE_SCAN, promise);
+
                 // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
                 // reactContext.registerReceiver(bReceiver, filter);
             }
             if (!adapter.isDiscovering()) {
                 adapter.startDiscovery();
+                promiseMap.put(PROMISE_SCAN, promise);
                 // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
                 // mContext.registerReceiver(bReceiver, filter);
                 // Log.i("ds", "Printer connection");
 
-            }
-            if (!adapter.startDiscovery()) {
-                promise.reject("DISCOVER", "NOT_STARTED");
-                cancelDisCovery();
-            } else {
-                promiseMap.put(PROMISE_SCAN, promise);
             }
         }
     }
