@@ -194,6 +194,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                     obj.put("name", d.getName());
                     obj.put("address", d.getAddress());
                     obj.put("class:", bluetoothClass.getDeviceClass()); //1664
+                    obj.put("type", "paired");
                     pairedDeivce.put(obj);
                 } catch (Exception e) {
                     //ignore.
@@ -297,6 +298,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                                 obj.put("name", d.getName());
                                 obj.put("address", d.getAddress());
                                 obj.put("class:", bluetoothClass.getDeviceClass()); //1664
+                                obj.put("type", "paired");
                                 pairedDeivce.pushString(obj.toString());
                             } catch (Exception e) {
                                 //ignore.
@@ -362,8 +364,11 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
                     JSONObject deviceFound = new JSONObject();
                     try {
+                        BluetoothClass bluetoothClass = device.getBluetoothClass();
                         deviceFound.put("name", device.getName());
                         deviceFound.put("address", device.getAddress());
+                        deviceFound.put("class", device.bluetoothClass.getDeviceClass());
+                        deviceFound.put("type", "unpaired");
                     } catch (Exception e) {
                         //ignore
                     }
