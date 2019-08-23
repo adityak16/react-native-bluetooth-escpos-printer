@@ -211,13 +211,16 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                 cancelDisCovery();
                 adapter.startDiscovery();
                 promiseMap.put(PROMISE_SCAN, promise);
-
+                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                this.reactContext.registerReceiver(discoverReceiver, filter);
                 // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
                 // reactContext.registerReceiver(bReceiver, filter);
             }
             if (!adapter.isDiscovering()) {
                 adapter.startDiscovery();
                 promiseMap.put(PROMISE_SCAN, promise);
+                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                this.reactContext.registerReceiver(discoverReceiver, filter);
                 // IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
                 // mContext.registerReceiver(bReceiver, filter);
                 // Log.i("ds", "Printer connection");
