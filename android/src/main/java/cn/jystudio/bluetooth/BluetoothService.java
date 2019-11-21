@@ -247,7 +247,7 @@ public class BluetoothService {
                 connectionFailed();
                 // Close the socket
                 try {
-                    if(!mmSocket) {
+                    if(mmSocket != null) {
                         mmSocket.close();
                     }
                     
@@ -338,7 +338,7 @@ public class BluetoothService {
 
         public void cancel() {
             try {
-                if(!mmSocket) {
+                if(mmSocket != null) {
                     mmSocket.close();
                 }
                 
