@@ -191,6 +191,7 @@ public class BluetoothService {
     private class ConnectedThread extends Thread {
         private final BluetoothDevice mmDevice;
         private  BluetoothSocket mmSocket;
+        private  BluetoothSocket tmp = null;
         private  InputStream mmInStream;
         private  OutputStream mmOutStream;
 
@@ -247,9 +248,8 @@ public class BluetoothService {
                 connectionFailed();
                 // Close the socket
                 try {
-                    if(mmSocket != null) {
-                        mmSocket.close();
-                    }
+                    mmSocket.close();
+                    connectionLost();
                     
                 } catch (Exception e2) {
                     Log.e(TAG, "unable to close() socket during connection failure", e2);
@@ -338,10 +338,7 @@ public class BluetoothService {
 
         public void cancel() {
             try {
-                if(mmSocket != null) {
-                    mmSocket.close();
-                }
-                
+                mmSocket.close();
                 connectionLost();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
